@@ -37,24 +37,22 @@ class Reportgen(object):
         #start docx object
         self.document = docx.Document()
 
-        #add paragraph
+        #add paragraph###################################################################
         paragraph = self.document.add_paragraph()
 
-        #first paragraph is boilerplate explaining this section
+        #first paragraph is boilerplate explaining this section###################################################################
         run_paragraph = paragraph.add_run('\nThis Appendix Contains Analysis of Cracked Passwords.\n')
         font = run_paragraph.font
         font.name = 'Hind'
         font.size = Pt(11)
+        ###################################################################
 
-        #create total passwords and unique table
+        #create total passwords and unique table###################################################################
         total_table = self.document.add_table(rows=0, cols=1)
         #one line per cell
         total_table.style = 'Light Grid'
-        #set table font
-        font = total_table.style.font
-        font.name = 'Hind'
-        font.size = Pt(11)
-        font.bold = False
+        col = total_table.columns[0]
+        col.width=Inches(3)
         #try to do autofit, doesnt seem to be working in libreoffice, but autofit is default anyway....
         #possibly related https://github.com/python-openxml/python-docx/issues/209
         #total_table.allow_autofit
@@ -62,24 +60,43 @@ class Reportgen(object):
         cells[0].text = str(total)
         cells = total_table.add_row().cells
         cells[0].text = str(unique)
-        #hack to fix width? https://github.com/python-openxml/python-docx/issues/315
-        '''for r in total_table.rows:
-            for c in r._tr.tc_lst:
-                tcW = c.tcPr.tcW
-                tcW.type = 'auto'
-                tcW.w = 0'''
-        paragraph = self.document.add_paragraph()
+        for row in total_table.rows:
+            for cell in row.cells:
+                paragraphs =  cell.paragraphs
+                for paragraph in paragraphs:
+                    for run in paragraph.runs:
+                        #set table font
+                        font = run.font
+                        font.name = 'Hind'
+                        font.size = Pt(11)
+                        font.bold = False
 
-        #second table - top 10 overall pws
+        paragraph = self.document.add_paragraph()
+        ###################################################################
+
+        #second table - top 10 overall pws###################################################################
         top_10_table = self.document.add_table(rows=0, cols=1)
         top_10_table.style = 'Light Grid'
         #set table font
         font = top_10_table.style.font
         font.name = 'Hind'
         font.size = Pt(11)
+        col = top_10_table.columns[0]
+        col.width=Inches(3)
         for i, val in enumerate(top_10):
             cells = top_10_table.add_row().cells
             cells[0].text = str(top_10[i])
+
+        for row in top_10_table.rows:
+            for cell in row.cells:
+                paragraphs =  cell.paragraphs
+                for paragraph in paragraphs:
+                    for run in paragraph.runs:
+                        #set table font
+                        font = run.font
+                        font.name = 'Hind'
+                        font.size = Pt(11)
+                        font.bold = False
         paragraph = self.document.add_paragraph()
 
         #third table - top 10 overall base dict words
@@ -89,9 +106,21 @@ class Reportgen(object):
         font = top_10_base_table.style.font
         font.name = 'Hind'
         font.size = Pt(11)
+        col = top_10_base_table.columns[0]
+        col.width=Inches(3)
         for i, val in enumerate(top_10_base):
             cells = top_10_base_table.add_row().cells
             cells[0].text = str(top_10_base[i])
+        for row in top_10_base_table.rows:
+            for cell in row.cells:
+                paragraphs =  cell.paragraphs
+                for paragraph in paragraphs:
+                    for run in paragraph.runs:
+                        #set table font
+                        font = run.font
+                        font.name = 'Hind'
+                        font.size = Pt(11)
+                        font.bold = False
         paragraph = self.document.add_paragraph()
 
         #fourth table - passwords by length
@@ -101,9 +130,21 @@ class Reportgen(object):
         font = length_order_table.style.font
         font.name = 'Hind'
         font.size = Pt(11)
+        col = length_order_table.columns[0]
+        col.width=Inches(3)
         for i, val in enumerate(lengths):
             cells = length_order_table.add_row().cells
             cells[0].text = str(lengths[i])
+        for row in length_order_table.rows:
+            for cell in row.cells:
+                paragraphs =  cell.paragraphs
+                for paragraph in paragraphs:
+                    for run in paragraph.runs:
+                        #set table font
+                        font = run.font
+                        font.name = 'Hind'
+                        font.size = Pt(11)
+                        font.bold = False
         paragraph = self.document.add_paragraph()
 
         #fifth table - passwords by count 
@@ -113,9 +154,21 @@ class Reportgen(object):
         font = count_order_table.style.font
         font.name = 'Hind'
         font.size = Pt(11)
+        col = count_order_table.columns[0]
+        col.width=Inches(3)
         for i, val in enumerate(counts):
             cells = count_order_table.add_row().cells
             cells[0].text = str(counts[i])
+        for row in count_order_table.rows:
+            for cell in row.cells:
+                paragraphs =  cell.paragraphs
+                for paragraph in paragraphs:
+                    for run in paragraph.runs:
+                        #set table font
+                        font = run.font
+                        font.name = 'Hind'
+                        font.size = Pt(11)
+                        font.bold = False
         paragraph = self.document.add_paragraph()
 
         #sixth table
@@ -125,9 +178,21 @@ class Reportgen(object):
         font = one_to_six_table.style.font
         font.name = 'Hind'
         font.size = Pt(11)
+        col =  one_to_six_table.columns[0]
+        col.width=Inches(3)
         for i, val in enumerate(one_to_six):
             cells = one_to_six_table.add_row().cells
             cells[0].text = str(one_to_six[i])
+        for row in one_to_six_table.rows:
+            for cell in row.cells:
+                paragraphs =  cell.paragraphs
+                for paragraph in paragraphs:
+                    for run in paragraph.runs:
+                        #set table font
+                        font = run.font
+                        font.name = 'Hind'
+                        font.size = Pt(11)
+                        font.bold = False
         paragraph = self.document.add_paragraph()
 
         #seventh table - the trailing number
@@ -137,9 +202,21 @@ class Reportgen(object):
         font = trailing_number_table.style.font
         font.name = 'Hind'
         font.size = Pt(11)
+        col = trailing_number_table.columns[0]
+        col.width=Inches(3)
         for i, val in enumerate(trailing_number):
             cells = trailing_number_table.add_row().cells
             cells[0].text = str(trailing_number[i])
+        for row in trailing_number_table.rows:
+            for cell in row.cells:
+                paragraphs =  cell.paragraphs
+                for paragraph in paragraphs:
+                    for run in paragraph.runs:
+                        #set table font
+                        font = run.font
+                        font.name = 'Hind'
+                        font.size = Pt(11)
+                        font.bold = False
         paragraph = self.document.add_paragraph()
 
         #eigth table - last digit in pw
@@ -149,9 +226,21 @@ class Reportgen(object):
         font = last_1digit_table.style.font
         font.name = 'Hind'
         font.size = Pt(11)
+        col = last_1digit_table.columns[0]
+        col.width=Inches(3)
         for i, val in enumerate(last_1digit):
             cells = last_1digit_table.add_row().cells
             cells[0].text = str(last_1digit[i])
+        for row in last_1digit_table.rows:
+            for cell in row.cells:
+                paragraphs =  cell.paragraphs
+                for paragraph in paragraphs:
+                    for run in paragraph.runs:
+                        #set table font
+                        font = run.font
+                        font.name = 'Hind'
+                        font.size = Pt(11)
+                        font.bold = False
         paragraph = self.document.add_paragraph()
 
         #ninth table - last 2 digits of pw
@@ -161,9 +250,21 @@ class Reportgen(object):
         font = last_2digit_table.style.font
         font.name = 'Hind'
         font.size = Pt(11)
+        col = last_2digit_table.columns[0]
+        col.width=Inches(3)
         for i, val in enumerate(last_2digit):
             cells = last_2digit_table.add_row().cells
             cells[0].text = str(last_2digit[i])
+        for row in last_2digit_table.rows:
+            for cell in row.cells:
+                paragraphs =  cell.paragraphs
+                for paragraph in paragraphs:
+                    for run in paragraph.runs:
+                        #set table font
+                        font = run.font
+                        font.name = 'Hind'
+                        font.size = Pt(11)
+                        font.bold = False
         paragraph = self.document.add_paragraph()
 
         #tenth table - last 3 digits of pw
@@ -173,9 +274,21 @@ class Reportgen(object):
         font = last_3digit_table.style.font
         font.name = 'Hind'
         font.size = Pt(11)
+        col = last_3digit_table.columns[0]
+        col.width=Inches(3)
         for i, val in enumerate(last_3digit):
             cells = last_3digit_table.add_row().cells
             cells[0].text = str(last_3digit[i])
+        for row in last_3digit_table.rows:
+            for cell in row.cells:
+                paragraphs =  cell.paragraphs
+                for paragraph in paragraphs:
+                    for run in paragraph.runs:
+                        #set table font
+                        font = run.font
+                        font.name = 'Hind'
+                        font.size = Pt(11)
+                        font.bold = False    
         paragraph = self.document.add_paragraph()
 
         #eleventh table - last 4 digits of pw
@@ -185,9 +298,21 @@ class Reportgen(object):
         font = last_4digit_table.style.font
         font.name = 'Hind'
         font.size = Pt(11)
+        col = last_4digit_table.columns[0]
+        col.width=Inches(3)
         for i, val in enumerate(last_4digit):
             cells = last_4digit_table.add_row().cells
             cells[0].text = str(last_4digit[i])
+        for row in last_4digit_table.rows:
+            for cell in row.cells:
+                paragraphs =  cell.paragraphs
+                for paragraph in paragraphs:
+                    for run in paragraph.runs:
+                        #set table font
+                        font = run.font
+                        font.name = 'Hind'
+                        font.size = Pt(11)
+                        font.bold = False
         paragraph = self.document.add_paragraph()
 
         #twelvth table - last 5 digits of pw
@@ -197,9 +322,21 @@ class Reportgen(object):
         font = last_5digit_table.style.font
         font.name = 'Hind'
         font.size = Pt(11)
+        col = last_5digit_table.columns[0]
+        col.width=Inches(3)
         for i, val in enumerate(last_5digit):
             cells = last_5digit_table.add_row().cells
             cells[0].text = str(last_5digit[i])
+        for row in last_5digit_table.rows:
+            for cell in row.cells:
+                paragraphs =  cell.paragraphs
+                for paragraph in paragraphs:
+                    for run in paragraph.runs:
+                        #set table font
+                        font = run.font
+                        font.name = 'Hind'
+                        font.size = Pt(11)
+                        font.bold = False
         paragraph = self.document.add_paragraph()
 
         #thirteenth table - characterset block
@@ -209,9 +346,21 @@ class Reportgen(object):
         font = charset_table.style.font
         font.name = 'Hind'
         font.size = Pt(11)
+        col = charset_table.columns[0]
+        col.width=Inches(3)
         for i, val in enumerate(charset):
             cells = charset_table.add_row().cells
             cells[0].text = str(charset[i])
+        for row in charset_table.rows:
+            for cell in row.cells:
+                paragraphs =  cell.paragraphs
+                for paragraph in paragraphs:
+                    for run in paragraph.runs:
+                        #set table font
+                        font = run.font
+                        font.name = 'Hind'
+                        font.size = Pt(11)
+                        font.bold = False
    
 
         #have a look-see at all styles in dist-packages/docx/templates/default-styles.xml
