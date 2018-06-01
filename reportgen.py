@@ -61,6 +61,7 @@ class Reportgen(object):
 
         #second table - top 10 overall pws
         top_10_table = self.document.add_table(rows=0, cols=1)
+        top_10_table.style = 'Table Grid'
         for i, val in enumerate(top_10):
             cells = top_10_table.add_row().cells
             cells[0].text = str(top_10[i])
@@ -68,6 +69,7 @@ class Reportgen(object):
 
         #third table - top 10 overall base dict words
         top_10_base_table = self.document.add_table(rows=0, cols=1)
+        top_10_base_table.style = 'Table Grid'
         for i, val in enumerate(top_10_base):
             cells = top_10_base_table.add_row().cells
             cells[0].text = str(top_10_base[i])
@@ -75,6 +77,7 @@ class Reportgen(object):
 
         #fourth table - passwords by length
         length_order_table = self.document.add_table(rows=0, cols=1)
+        length_order_table.style = 'Table Grid'
         for i, val in enumerate(lengths):
             cells = length_order_table.add_row().cells
             cells[0].text = str(lengths[i])
@@ -82,6 +85,7 @@ class Reportgen(object):
 
         #fifth table - passwords by count 
         count_order_table = self.document.add_table(rows=0, cols=1)
+        count_order_table.style = 'Table Grid'
         for i, val in enumerate(counts):
             cells = count_order_table.add_row().cells
             cells[0].text = str(counts[i])
@@ -89,6 +93,7 @@ class Reportgen(object):
 
         #sixth table
         one_to_six_table = self.document.add_table(rows=0, cols=1)
+        one_to_six_table.style = 'Table Grid'
         for i, val in enumerate(one_to_six):
             cells = one_to_six_table.add_row().cells
             cells[0].text = str(one_to_six[i])
@@ -96,6 +101,7 @@ class Reportgen(object):
 
         #seventh table - the trailing number
         trailing_number_table = self.document.add_table(rows=0, cols=1)
+        trailing_number_table.style = 'Table Grid'
         for i, val in enumerate(trailing_number):
             cells = trailing_number_table.add_row().cells
             cells[0].text = str(trailing_number[i])
@@ -103,6 +109,7 @@ class Reportgen(object):
 
         #eigth table - last digit in pw
         last_1digit_table = self.document.add_table(rows=0, cols=1)
+        last_1digit_table.style = 'Table Grid'
         for i, val in enumerate(last_1digit):
             cells = last_1digit_table.add_row().cells
             cells[0].text = str(last_1digit[i])
@@ -110,6 +117,7 @@ class Reportgen(object):
 
         #ninth table - last 2 digits of pw
         last_2digit_table = self.document.add_table(rows=0, cols=1)
+        last_2digit_table.style = 'Table Grid'
         for i, val in enumerate(last_2digit):
             cells = last_2digit_table.add_row().cells
             cells[0].text = str(last_2digit[i])
@@ -117,6 +125,7 @@ class Reportgen(object):
 
         #tenth table - last 3 digits of pw
         last_3digit_table = self.document.add_table(rows=0, cols=1)
+        last_3digit_table.style = 'Table Grid'
         for i, val in enumerate(last_3digit):
             cells = last_3digit_table.add_row().cells
             cells[0].text = str(last_3digit[i])
@@ -124,6 +133,7 @@ class Reportgen(object):
 
         #eleventh table - last 4 digits of pw
         last_4digit_table = self.document.add_table(rows=0, cols=1)
+        last_4digit_table.style = 'Table Grid'
         for i, val in enumerate(last_4digit):
             cells = last_4digit_table.add_row().cells
             cells[0].text = str(last_4digit[i])
@@ -131,6 +141,7 @@ class Reportgen(object):
 
         #twelvth table - last 5 digits of pw
         last_5digit_table = self.document.add_table(rows=0, cols=1)
+        last_5digit_table.style = 'Table Grid'
         for i, val in enumerate(last_5digit):
             cells = last_5digit_table.add_row().cells
             cells[0].text = str(last_5digit[i])
@@ -138,6 +149,7 @@ class Reportgen(object):
 
         #thirteenth table - characterset block
         charset_table = self.document.add_table(rows=0, cols=1)
+        charset_table.style = 'Table Grid'
         for i, val in enumerate(charset):
             cells = charset_table.add_row().cells
             cells[0].text = str(charset[i])
