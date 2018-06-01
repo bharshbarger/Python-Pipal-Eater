@@ -212,7 +212,7 @@ class Reportgen(object):
         for i, val in enumerate(charset):
             cells = charset_table.add_row().cells
             cells[0].text = str(charset[i])
-        paragraph = self.document.add_paragraph()
+   
 
         #have a look-see at all styles in dist-packages/docx/templates/default-styles.xml
         # you need to pull the grid styles out of that xml and into a file called docx_grid_styles.txt
