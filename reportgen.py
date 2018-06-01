@@ -215,6 +215,7 @@ class Reportgen(object):
         paragraph = self.document.add_paragraph()
 
         #have a look-see at all styles in dist-packages/docx/templates/default-styles.xml
+        # you need to pull the grid styles out of that xml and into a file called docx_grid_styles.txt
         '''with open('docx_grid_styles.txt') as f:
             grid_styles = (f.readlines())
             grid_styles = [x.strip() for x in grid_styles]
