@@ -41,7 +41,7 @@ class Pipal_Eater(object):
                 self.pipal_file_content = [x.strip() for x in self.pipal_file_content]
 
         except Exception as e:
-            print('\n[!] Couldn\'t open file: \'{}\' Error:{}'.format(self.args.file[0],e))
+            print('\n[!] Couldn\'t open file: \'{}\' Error:{}'.format(self.args.file,e))
             sys.exit(0)
 
         if self.args.verbose is True:
@@ -52,8 +52,10 @@ class Pipal_Eater(object):
         for i, line in enumerate(self.pipal_file_content):
             if 'Total entries' in line:
                 self.total = line
+
             if 'Total unique' in line:
                 self.unique = line
+
             #read 11 lines starting with this heading, always 10 long so range 11 works
             if 'Top 10 passwords' in line:               
                 self.top_10 = []
@@ -66,42 +68,61 @@ class Pipal_Eater(object):
                 for z in range(11):
                     self.top_10_base.append(self.pipal_file_content[(i + z) % len(self.pipal_file_content)])
 
-            
+            #range is dependent on the length of passwords cracked, 0-??. need to count lines to next if statement first for range
             if 'length ordered' in line:
                 self.lengths = []
                 for z in range(11):
                     self.lengths.append(self.pipal_file_content[(i + z) % len(self.pipal_file_content)])
 
-
             if 'count ordered' in line:
-                self.counts = line
+                self.counts = []
+                for z in range(11):
+                    self.counts.append(self.pipal_file_content[(i + z) % len(self.pipal_file_content)])
+
             if 'One to six characters' in line:
-                self.one_to_six = line
-            if 'One to eight characters' in line:
-                self.one_to_eight = line
-            if 'More than eight' in line:
-                self.more_than_eight = line
-            if 'Single digit on the end' in line:
-                self.trailing_digit = line
+                self.one_to_six = []
+                for z in range(15):
+                    self.one_to_six.append(self.pipal_file_content[(i + z) % len(self.pipal_file_content)])
+
             if 'Last number' in line:
-                self.trailing_number = line
+                self.trailing_number = []
+                for z in range(11):
+                    self.trailing_number.append(self.pipal_file_content[(i + z) % len(self.pipal_file_content)])
+
             if 'Last digit' in line:
-                self.last_1digit = line
+                self.last_1digit = []
+                for z in range(11):
+                    self.last_1digit.append(self.pipal_file_content[(i + z) % len(self.pipal_file_content)])
+
             if 'Last 2 digits' in line:
-                self.last_2digit = line
+                self.last_2digit = []
+                for z in range(11):
+                    self.last_2digit.append(self.pipal_file_content[(i + z) % len(self.pipal_file_content)])
+            
             if 'Last 3 digits' in line:
-                self.last_3digit = line
+                self.last_3digit = []
+                for z in range(11):
+                    self.last_3digit.append(self.pipal_file_content[(i + z) % len(self.pipal_file_content)])
+            
             if 'Last 4 digits' in line:
-                self.last_4digit = line
+                self.last_4digit = []
+                for z in range(11):
+                    self.last_4digit.append(self.pipal_file_content[(i + z) % len(self.pipal_file_content)])
+            
             if 'Last 5 digits ' in line:
-                self.last_5digit = line
+                self.last_5digit = []
+                for z in range(11):
+                    self.last_5digit.append(self.pipal_file_content[(i + z) % len(self.pipal_file_content)])
+            
             if 'Character sets' in line:
-                self.charset = line
-            if 'Character set ordering' in line:
-                self.charset_ordering = line
+                self.charset = []
+                for z in range(24):
+                    self.charset.append(self.pipal_file_content[(i + z) % len(self.pipal_file_content)])
+            
 
     def report(self):
         """run the docx report. text files happen in the respective functions"""
+        #i need to figure out how to pass all these in a list or something, woof.
         self.report_generator_module.run(\
                 self.total,\
                 self.unique,\
@@ -110,19 +131,13 @@ class Pipal_Eater(object):
                 self.lengths,\
                 self.counts,\
                 self.one_to_six,\
-                self.one_to_eight,\
-                self.more_than_eight,\
-                self.trailing_digit,\
                 self.trailing_number,\
                 self.last_1digit,\
                 self.last_2digit,\
                 self.last_3digit,\
                 self.last_4digit,\
                 self.last_5digit,\
-                self.charset,\
-                self.charset_ordering)
-
-
+                self.charset)
 
     def end(self):
         """ending stuff, right now just shows how long script took to run"""

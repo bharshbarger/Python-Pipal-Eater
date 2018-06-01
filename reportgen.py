@@ -24,23 +24,17 @@ class Reportgen(object):
         lengths,\
         counts,\
         one_to_six,\
-        one_to_eight,\
-        more_than_eight,\
-        trailing_digit,\
         trailing_number,\
         last_1digit,\
         last_2digit,\
         last_3digit,\
         last_4digit,\
         last_5digit,\
-        charset,\
-        charset_ordering):
-
-        
+        charset):
 
         print('\n[+] Generating Appendix')
 
-        #start doc object
+        #start docx object
         self.document = docx.Document()
 
         #add paragraph
@@ -53,47 +47,101 @@ class Reportgen(object):
         font.size = Pt(11)
 
         #create total passwords and unique table
-        first_table = self.document.add_table(rows=0, cols=1)
-        
-        #try to do autofit, doesnt seem to be working
-        #first_table.style = 'Table Grid'
-        #first_table.allow_autofit
-        
-        cells = first_table.add_row().cells
+        total_table = self.document.add_table(rows=0, cols=1)
+        #one line per cell
+        total_table.style = 'Table Grid'
+        #try to do autofit, doesnt seem to be working in libreoffice, but autofit is default anyway....
+        #possibly related https://github.com/python-openxml/python-docx/issues/209
+        #total_table.allow_autofit
+        cells = total_table.add_row().cells
         cells[0].text = str(total)
-        cells = first_table.add_row().cells
+        cells = total_table.add_row().cells
         cells[0].text = str(unique)
-        
         paragraph = self.document.add_paragraph()
 
-
-        #second table
-        second_table = self.document.add_table(rows=0, cols=1)
-        
+        #second table - top 10 overall pws
+        top_10_table = self.document.add_table(rows=0, cols=1)
         for i, val in enumerate(top_10):
-            cells = second_table.add_row().cells
+            cells = top_10_table.add_row().cells
             cells[0].text = str(top_10[i])
-        
-
         paragraph = self.document.add_paragraph()
 
-        #third table
-        third_table = self.document.add_table(rows=0, cols=1)
+        #third table - top 10 overall base dict words
+        top_10_base_table = self.document.add_table(rows=0, cols=1)
         for i, val in enumerate(top_10_base):
-            cells = third_table.add_row().cells
+            cells = top_10_base_table.add_row().cells
             cells[0].text = str(top_10_base[i])
-    
         paragraph = self.document.add_paragraph()
 
-
-        #fourth table
-        fourth_table = self.document.add_table(rows=0, cols=1)
+        #fourth table - passwords by length
+        length_order_table = self.document.add_table(rows=0, cols=1)
         for i, val in enumerate(lengths):
-            cells = fourth_table.add_row().cells
+            cells = length_order_table.add_row().cells
             cells[0].text = str(lengths[i])
-    
         paragraph = self.document.add_paragraph()
 
+        #fifth table - passwords by count 
+        count_order_table = self.document.add_table(rows=0, cols=1)
+        for i, val in enumerate(counts):
+            cells = count_order_table.add_row().cells
+            cells[0].text = str(counts[i])
+        paragraph = self.document.add_paragraph()
+
+        #sixth table
+        one_to_six_table = self.document.add_table(rows=0, cols=1)
+        for i, val in enumerate(one_to_six):
+            cells = one_to_six_table.add_row().cells
+            cells[0].text = str(one_to_six[i])
+        paragraph = self.document.add_paragraph()
+
+        #seventh table - the trailing number
+        trailing_number_table = self.document.add_table(rows=0, cols=1)
+        for i, val in enumerate(trailing_number):
+            cells = trailing_number_table.add_row().cells
+            cells[0].text = str(trailing_number[i])
+        paragraph = self.document.add_paragraph()
+
+        #eigth table - last digit in pw
+        last_1digit_table = self.document.add_table(rows=0, cols=1)
+        for i, val in enumerate(last_1digit):
+            cells = last_1digit_table.add_row().cells
+            cells[0].text = str(last_1digit[i])
+        paragraph = self.document.add_paragraph()
+
+        #ninth table - last 2 digits of pw
+        last_2digit_table = self.document.add_table(rows=0, cols=1)
+        for i, val in enumerate(last_2digit):
+            cells = last_2digit_table.add_row().cells
+            cells[0].text = str(last_2digit[i])
+        paragraph = self.document.add_paragraph()
+
+        #tenth table - last 3 digits of pw
+        last_3digit_table = self.document.add_table(rows=0, cols=1)
+        for i, val in enumerate(last_3digit):
+            cells = last_3digit_table.add_row().cells
+            cells[0].text = str(last_3digit[i])
+        paragraph = self.document.add_paragraph()
+
+        #eleventh table - last 4 digits of pw
+        last_4digit_table = self.document.add_table(rows=0, cols=1)
+        for i, val in enumerate(last_4digit):
+            cells = last_4digit_table.add_row().cells
+            cells[0].text = str(last_4digit[i])
+        paragraph = self.document.add_paragraph()
+
+        #twelvth table - last 5 digits of pw
+        last_5digit_table = self.document.add_table(rows=0, cols=1)
+        for i, val in enumerate(last_5digit):
+            cells = last_5digit_table.add_row().cells
+            cells[0].text = str(last_5digit[i])
+        paragraph = self.document.add_paragraph()
+
+        #thirteenth table - characterset block
+        charset_table = self.document.add_table(rows=0, cols=1)
+        for i, val in enumerate(charset):
+            cells = charset_table.add_row().cells
+            cells[0].text = str(charset[i])
+        paragraph = self.document.add_paragraph()
 
         self.document.save('Pipal_Appendix.docx'.format())
         print('[+] Appendix Generated! Yay!')
