@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """module to generate a docx report"""
 
 #https://python-docx.readthedocs.io/en/latest/user/text.html
